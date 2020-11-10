@@ -25,7 +25,7 @@ class HomePage extends Component {
      
       render() {
         return (
-          <Sidebar
+          <Sidebar 
             sidebar={<Navbars/>}
             open={this.state.sidebarOpen}
             onSetOpen={this.onSetSidebarOpen}
