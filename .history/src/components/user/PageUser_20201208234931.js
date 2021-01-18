@@ -1,0 +1,47 @@
+import React, { Component } from 'react';
+import HomePage from '../HomePage';
+import FormSearchUser from './FormSearchUser';
+import AddModal from './AddModal';
+import NavbarForm from '../NavbarForm';
+
+class PageUser extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            show: false
+        }
+    }
+    showForm = () => {
+        this.state({
+            ...this.state,
+            show: true
+        })
+        console.log("show in page  ", this.state.show);
+    }
+    render() {
+        return (
+            <div>
+                {/* <HomePage /> */}
+                <NavbarForm></NavbarForm>
+                <div className="container">
+                    {/* <AddModal></AddModal> */}
+                    <div style={{ float: 'right' }}>
+                        <AddModal
+                            show={this.state.show} open={() => this.showForm()}
+                        />
+                    </div><br />
+                    <div className="card bg-primary text-white">
+                        <div className="card-body">DANH SÁCH NGƯỜI DÙNG</div>
+                    </div>
+                    <div>
+                        <FormSearchUser>
+
+                        </FormSearchUser>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default PageUser;
