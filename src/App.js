@@ -1,44 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { Route, BrowserRouter, Switch} from 'react-router-dom';
-import './App.css';
-import Dashboard from './components/Dashboard';
-import PageTeacher from './components/teacher/PageTeacher';
-import Login from './components/Login'
+import React, { useEffect, useState } from "react";
+import { Route, BrowserRouter, Switch } from "react-router-dom";
+import "./App.css";
+import Dashboard from "./components/Dashboard";
+import PageTeacher from "./components/teacher/PageTeacher";
+import Login from "./components/Login";
 //import Register from './components/Register';
-import PageStudent from './components/student/PageStudent';
-import AcountTeacher from './components/teacher/accountteacher/AcountTeacher';
-import PageUser from './components/user/PageUser';
-import DashboardStudent from './components/student/pageStudent/DashboardStudent';
-import DashboardTeacher from './components/teacher/pageTeacher/DashboardTeacher';
-import PageClass from './components/class/PageClass';
-import Course from './components/course/Course';
-import Pagetimetable from './components/timetable/Pagetimetable';
-
+import PageStudent from "./components/student/PageStudent";
+import AcountTeacher from "./components/teacher/accountteacher/AcountTeacher";
+import PageUser from "./components/user/PageUser";
+import DashboardStudent from "./components/student/pageStudent/DashboardStudent";
+import DashboardTeacher from "./components/teacher/pageTeacher/DashboardTeacher";
+import PageClass from "./components/class/PageClass";
+import Course from "./components/course/Course";
+import Pagetimetable from "./components/timetable/Pagetimetable";
+//import "./loader";
 
 export default function App() {
-
-  const [isLogin, setLogin] = useState(false)
-  const [isAdmin, setAdmin] = useState(false)
-  const [isTeacher, setTeacher] = useState(false)
-  const [isStudent, setStudent] = useState(false)
+  const [isLogin, setLogin] = useState(false);
+  const [isAdmin, setAdmin] = useState(false);
+  const [isTeacher, setTeacher] = useState(false);
+  const [isStudent, setStudent] = useState(false);
   useEffect(() => {
-    if (localStorage.getItem('token') && localStorage.getItem('token') != "undefined") {
-      setLogin(true)
+    if (
+      localStorage.getItem("token") &&
+      localStorage.getItem("token") != "undefined"
+    ) {
+      setLogin(true);
       // console.log("isLogin:  " + isLogin);
     }
-    if (localStorage.getItem('role') === "ADMIN") {
-      setAdmin(true)
+    if (!localStorage.getItem("token")) {
+      setLogin(true);
+      // console.log("isLogin:  " + isLogin);
     }
-    else if (localStorage.getItem('role') === "TEACHER") {
-      setTeacher(true)
+    if (localStorage.getItem("role") === "ADMIN") {
+      setAdmin(true);
+    } else if (localStorage.getItem("role") === "TEACHER") {
+      setTeacher(true);
+    } else if (localStorage.getItem("role") === "STUDENT") {
+      setStudent(true);
     }
-    else if (localStorage.getItem('role') === "STUDENT") {
-      setStudent(true)
-    }
-  }, [isLogin, isAdmin, isTeacher, isStudent])
+  }, [isLogin, isAdmin, isTeacher, isStudent]);
+  
   return (
     <>
-      <div >
+      <div>
         <BrowserRouter>
           {/* <HomePage /> */}
           <div>
@@ -61,13 +66,9 @@ export default function App() {
             </Switch>
 
             {/* <Route path='/' /> */}
-
-
           </div>
         </BrowserRouter>
       </div>
     </>
   );
 }
-
-

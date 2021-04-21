@@ -24,64 +24,111 @@ function ProfileUser(props) {
     const saveData = async () => {
         // Axios.post('')
     }
+
+const displayDate=(dateStr)=>{
+    let date = new Date(dateStr);
+    //console.log(date.toLocaleDateString);
+    return date.toLocaleDateString()+" "+date.toLocaleTimeString();
+}
+
     return (
-        <>
-            <div>
-                <div>
-                    <Button className="btn-primary" color="info" onClick={() => {
-                        console.log(11111);
-                        handleShow()
-                    }}>Chi tiết</Button>
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header toggle={handleShow}>
-                            Thông Tin Người Dùng
-                        </Modal.Header>
-                        <Modal.Body>
+      <>
+        <div>
+          <div>
+            <Button
+              className="btn-primary"
+              color="info"
+              onClick={() => {
+                console.log(11111);
+                handleShow();
+              }}
+            >
+              Chi tiết
+            </Button>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header toggle={handleShow}>
+                Thông Tin Người Dùng
+              </Modal.Header>
+              <Modal.Body>
+                <div className="modal-body">
+                  <form>
+                    <div className="form-group">
+                      <label className="col-form-label">Tên Người dùng:</label>
+                      <div>{displayDate(infor.lastUpdate)}</div>
+                      {/* {console.log(this.displayDate(infor.lastUpdate))} */}
+                      <input
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        value={infor.name}
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="col-form-label">Email:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="email"
+                        value={infor.email}
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="col-form-label">Vài Trò:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="email"
+                        value={infor.role}
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}
+                      />
+                    </div>
 
-                            <div className="modal-body">
-                                <form >
-                                    <div className="form-group">
-                                        <label className="col-form-label">Tên Người dùng:</label>
-                                        <input type="text" name="name" className="form-control" value={infor.name} onChange={(e) => {
-                                            handleChange(e)
-                                        }} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="col-form-label">Email:</label>
-                                        <input type="text" className="form-control" name="email" value={infor.email} onChange={(e) => {
-                                            handleChange(e)
-                                        }} />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="col-form-label">Vài Trò:</label>
-                                        <input type="text" className="form-control" name="email" value={infor.role} onChange={(e) => {
-                                            handleChange(e)
-                                        }} />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="col-form-label">Ngày Tạo:</label>
-                                        <input type="datetime" className="form-control" name="creatAt" value={userInfo.lastUpate} onChange={(e) => {
-                                            handleChange(e)
-                                        }} />
-                                    </div>
-                                </form>
-                            </div>
-
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={() => {
-                                saveData()
-                            }}>Save changes</button>
-                        </Modal.Footer>
-
-
-
-                    </Modal></div>
-            </div>
-
-        </>
+                    <div className="form-group">
+                      <label className="col-form-label">Ngày Tạo:</label>
+                      <input
+                      disabled
+                        type="text"
+                        className="form-control"
+                        name="creatAt"
+                        value={infor.lastUpdate}
+                        onChange={(e) => {
+                          handleChange(e);
+                        }}
+                      />
+                    </div>
+                  </form>
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => {
+                    saveData();
+                  }}
+                >
+                  Save changes
+                </button>
+              </Modal.Footer>
+            </Modal>
+          </div>
+        </div>
+      </>
     );
 }
 

@@ -9,7 +9,7 @@ import App from './App';
 // import NavbarForm from './components/NavbarForm';
 // import Navbars from './components/Navbars';
 import './index.css';
-
+// import './loader';
 
 
 ReactDOM.render(
