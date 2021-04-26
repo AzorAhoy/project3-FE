@@ -1,0 +1,35 @@
+.break-me {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#react-paginate ul {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: aquamarine;
+}
+
+#react-paginate li {
+  display: inline-block;
+}
+
+.pagination {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.page {
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-width: 10px;
+  border: 1px solid black;
+}
+
+.active {
+  background-color: greenyellow;
+}
