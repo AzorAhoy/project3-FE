@@ -150,7 +150,7 @@ this.callAPI();
           pageRangeDisplayed={5}
           onPageChange={this.toPage}
           containerClassName={"pagination"}
-          activeClassName={"active"}
+          activeClassName={"active-page"}
           pageClassName={"page"}
         />
         <button onClick={() => this.next()}>NEXT</button>

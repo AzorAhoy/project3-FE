@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import moment from 'moment';
 class AddClass extends Component {
     state = {
         name: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        errors: [],
     }
 
     handleChange = (event) => {
@@ -24,14 +25,16 @@ class AddClass extends Component {
     }
 
     handleSubmit = event => {
+        console.log(this.state)
         //console.log(this.state.name);
         // event.preventDefault();
         console.log('12334')
         const clas = {
             name: this.state.name,
-            startDate: this.state.startDate,
-            endDate: this.state.endDate
-
+            // startDate: this.state.startDate,
+            // endDate: this.state.endDate
+            startDate: moment(this.state.startDate).format("YYYY/MM/DD"),
+            endDate: moment(this.state.endDate).format("YYYY/MM/DD")
         };
 
         console.log(JSON.stringify(clas) + "==>", localStorage.getItem('token'));
@@ -56,9 +59,16 @@ class AddClass extends Component {
             data: clas
         }
         axios(config).then(res => {
-            console.log(res)
-        }).catch(err => {
-            console.log(err.response)
+            console.log(res);
+            window.$("#myModal").modal("toggle");
+        }).catch(error => {
+            console.log(error.response);
+            let errResp = error.response;
+            console.log(errResp);
+            alert(JSON.stringify(errResp.data));
+            if (errResp.data) {
+                this.setState({ errors: errResp.data });
+            }
         })
     }
     render() {
@@ -83,20 +93,40 @@ class AddClass extends Component {
                                         <div className="form-group">
                                             <label htmlFor="name" className="col-form-label">Tên Lớp Học:</label>
                                             <input type="text" name="name" className="form-control" id="name" onChange={this.handleChange} />
+                                            {this.state.errors.name && (
+                                                <div className="text-danger">
+                                                    {this.state.errors.name}
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="message-text" className="col-form-label">Ngày Bắt Đầu:</label>
-                                            <input type="text" className="form-control"  name="startDate" onChange={this.handleChange} />
+                                            <input type="date" className="form-control" name="startDate" onChange={this.handleChange} />
+                                            {this.state.errors.startDate && (
+                                                <div className="text-danger">
+                                                    {this.state.errors.startDate}
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="message-text" className="col-form-label">Ngày Kết Thúc:</label>
-                                            <input type="text" className="form-control"  name="endDate" onChange={this.handleChange} />
+                                            <input type="date" className="form-control" name="endDate" onChange={this.handleChange} />
+                                            {this.state.errors.endDate && (
+                                                <div className="text-danger">
+                                                    {this.state.errors.endDate}
+                                                </div>
+                                            )}
+                                            {this.state.errors.inValidTime && (
+                                                <div className="text-danger">
+                                                    {this.state.errors.inValidTime}
+                                                </div>
+                                            )}
                                         </div>
-                                       
+
                                     </form>
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.handleSubmit()} >Thêm</button>
+                                    <button type="button" className="btn btn-primary" onClick={() => this.handleSubmit()} >Thêm</button>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 
 class AddCourses extends Component {
     state = {
@@ -7,7 +8,8 @@ class AddCourses extends Component {
         subject: '',
         semester: '',
         startDate: '',
-        endDate:''
+        endDate:'',
+        errors: [],
     }
     
     handleChange = (event) => {
@@ -27,10 +29,11 @@ class AddCourses extends Component {
         const course = {
             name: this.state.name,
             subject: this.state.subject,
-            //semester: this.state.semester,
-            startDate: this.state.startDate,
-            endDate: this.state.endDate,
-
+            semester: this.state.semester,
+            // startDate: this.state.startDate,
+            // endDate: this.state.endDate,
+            startDate: moment(this.state.startDate).format("YYYY/MM/DD"),
+            endDate: moment(this.state.endDate).format("YYYY/MM/DD")
         };
         
         console.log(JSON.stringify(course) + "==>", localStorage.getItem('token'));
@@ -55,9 +58,17 @@ class AddCourses extends Component {
             data:course
         }
         axios(config).then(res=>{
-            console.log(res)
+            console.log(res);
+            window.$("#myModal").modal("toggle");
         }).catch(err=>{
-            console.log(err.response)
+            console.log(err.response);
+            console.log(err.response);
+            let errResp = err.response;
+            console.log(errResp);
+            // alert(JSON.stringify(errResp.data));
+            if (errResp.data) {
+                this.setState({ errors: errResp.data });
+            }
         })
     }
     
@@ -94,11 +105,11 @@ class AddCourses extends Component {
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="message-text" className="col-form-label">Ngày Bắt Đầu:</label>
-                                            <input type="text" className="form-control"  name="startDate" onChange={this.handleChange} />
+                                            <input type="date" className="form-control"  name="startDate" onChange={this.handleChange} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="message-text" className="col-form-label">Ngày Kết Thúc:</label>
-                                            <input type="text" className="form-control"  name="endDate" onChange={this.handleChange} />
+                                            <input type="date" className="form-control"  name="endDate" onChange={this.handleChange} />
                                         </div>
                                         
                                         {/* <div className="form-group">
